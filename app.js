@@ -1,24 +1,61 @@
 // const validator = require('validator')
 const chalk = require('chalk')
-const  getNotes = require('./notes.js')
+const { describe, demand } = require('yargs')
+const yargs = require('yargs')
+// const  getNotes = require('./notes.js')
 
-// const Notes = getNotes()
+//customize yargs version
+yargs.version('1.1.0')
 
-// console.log(Notes)
+//Create a add command 
+yargs.command({
+    command: 'add',             //command name 
+    describe: 'Adding  a new note',         //description about command
+    builder: {
+        title: {                        //setting a option to the command
+            describe: 'Note title',
+            demandOption: true,
+            type: 'string'
+        },
 
-// console.log(chalk.red.inverse.bold("Error!"))
+        body: {                         //setting another option to the command
+            describe: 'Note body',
+            demandOption: 'true',
+            type: 'string'
+        }
+    },
+    handler: function(argv) {                   //when it is going to execute
+        console.log('Title: ' + argv.title)
+        console.log('Body: ' + argv.body)
 
-// // console.log(validator.isURL(''))
+    }
+})
 
-// console.log(process.argv[2])
+//create remove command
+yargs.command({
+    command: 'remove',             //command name 
+    describe: 'remove the note',         //description about command
+    handler: function() {                   //when it is going to execute
+        console.log('Removing the Note!')
+    }
+})
+//create list command
+yargs.command({
+    command: 'list',             //command name 
+    describe: 'listing the note',         //description about command
+    handler: function() {                   //when it is going to execute
+        console.log('Listing the Note!')
+    }
+})
+//create read command
+yargs.command({
+    command: 'read',             //command name 
+    describe: 'read the note',         //description about command
+    handler: function() {                   //when it is going to execute
+        console.log('Reading the Note!')
+    }
+})
 
-const command = process.argv[2]
 
-console.log(process.argv)
-
-if(command === 'add') {
-    console.log("Adding Note")
-}
-else if(command === 'remove'){
-    console.log("Removing Note")
-}
+// console.log(yargs.argv) 
+yargs.parse()
